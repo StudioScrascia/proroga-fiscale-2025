@@ -244,7 +244,7 @@
             <div class="studio-name">Studio Commerciale</div>
             <div class="doctor-name">Dott. Salvatore Scrascia</div>
             <div class="main-title">Proroga Versamenti Fiscali 2025</div>
-            <div class="subtitle">Verifica se rientri nella proroga</div>
+            <div class="subtitle">Verifica se rientri nella proroga al 21 luglio</div>
         </div>
 
         <!-- Introduzione -->
@@ -270,15 +270,10 @@
                     <strong>Regime Forfetario</strong><br>
                     <small>Contribuenti in regime forfetario</small>
                 </div>
-                <div class="option" onclick="selectOption(this, 'societa')">
-                    <strong>Società di Capitali</strong><br>
-                    <small>SRL, SPA, società per azioni</small>
-                </div>
                 <div class="option" onclick="selectOption(this, 'agricola')">
                     <strong>Attività Agricola</strong><br>
                     <small>Solo redditi agrari</small>
                 </div>
-
             </div>
             <button class="btn" id="btn1" onclick="nextQuestion(1)" disabled>Continua</button>
         </div>
@@ -297,26 +292,6 @@
                 </div>
             </div>
             <button class="btn" id="btn2a" onclick="showResult('isa')" disabled>Vedi Risultato</button>
-        </div>
-
-        <!-- Domanda 2: Per Società - Bilancio -->
-        <div class="card quiz-container" id="question2b">
-            <div class="question">Quando approvi il bilancio 2024?</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 'entro_maggio')">
-                    <strong>Entro il 31 maggio 2025</strong><br>
-                    <small>Approvo il bilancio nei termini ordinari</small>
-                </div>
-                <div class="option" onclick="selectOption(this, 'dopo_maggio')">
-                    <strong>Dopo il 31 maggio 2025</strong><br>
-                    <small>Userò i 180 giorni dalla chiusura dell'esercizio</small>
-                </div>
-                <div class="option" onclick="selectOption(this, 'non_so')">
-                    <strong>Non lo so ancora</strong><br>
-                    <small>Devo ancora decidere</small>
-                </div>
-            </div>
-            <button class="btn" id="btn2b" onclick="showResult('societa')" disabled>Vedi Risultato</button>
         </div>
 
         <!-- Risultati -->
@@ -413,8 +388,6 @@
                 const answer = answers['question1'];
                 if (answer === 'isa') {
                     document.getElementById('question2a').classList.add('active');
-                } else if (answer === 'societa') {
-                    document.getElementById('question2b').classList.add('active');
                 } else {
                     showResult(answer);
                 }
@@ -439,27 +412,12 @@
                     resultType = 'negative';
                     description = 'Anche se la tua attività rientra negli ISA, i tuoi ricavi superano la soglia di 5.164.569 euro. Non puoi beneficiare della proroga.';
                 }
-            } else if (type === 'societa') {
-                const bilancio = answers['question2b'];
-                if (bilancio === 'entro_maggio') {
-                    resultType = 'negative';
-                    description = 'Le società di capitali che approvano il bilancio entro il 31 maggio hanno le scadenze ordinarie (30 giugno) e non beneficiano della proroga.';
-                } else if (bilancio === 'dopo_maggio') {
-                    resultType = 'negative';
-                    description = 'Le società che approvano il bilancio dopo il 31 maggio hanno già termini di versamento successivi al 30 giugno e non sono interessate da questa proroga.';
-                } else {
-                    resultType = 'contact';
-                    description = 'La data di approvazione del bilancio è fondamentale per determinare le scadenze. Ti consigliamo di contattarci per valutare insieme la strategia migliore.';
-                }
             } else if (type === 'forfetario') {
                 resultType = 'positive';
                 description = 'I contribuenti in regime forfetario beneficiano automaticamente della proroga. Puoi versare le tue imposte entro il 21 luglio senza maggiorazioni.';
             } else if (type === 'agricola') {
                 resultType = 'negative';
                 description = 'Le attività agricole con solo redditi agrari sono espressamente escluse dalla proroga e mantengono le scadenze ordinarie del 30 giugno.';
-            } else {
-                resultType = 'contact';
-                description = 'La tua situazione potrebbe rientrare in casistiche particolari. Contattaci per una valutazione personalizzata della tua posizione fiscale.';
             }
 
             // Mostra risultato appropriato
